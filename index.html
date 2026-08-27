@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Diner 9000</title>
+
+
+    <!-- =====================================================
+         BIBLIOTECA MODEL VIEWER
+         ===================================================== -->
+
+    <script type="module"
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js">
+    </script>
+
+
+    <!-- =====================================================
+         FONTES RETROFUTURISTAS
+         ===================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Righteous&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         ESTILOS
+         ===================================================== -->
+
+    <style>
+
+        /* =================================================
+           CONFIGURAÇÃO GERAL
+           ================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: "Orbitron", sans-serif;
+
+            color: white;
+
+            text-align: center;
+
+            overflow-x: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 20% 15%,
+                    rgba(255, 60, 172, 0.18),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 80% 75%,
+                    rgba(110, 231, 255, 0.15),
+                    transparent 30%
+                ),
+
+                #080b18;
+
+        }
+
+
+        /* =================================================
+           ESTRELAS DO FUNDO
+           ================================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            opacity: 0.25;
+
+            background-image:
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.9) 1px,
+                    transparent 1px
+                ),
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.6) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                90px 90px,
+                150px 150px;
+
+            background-position:
+                10px 20px,
+                50px 80px;
+
+        }
+
+
+        /* =================================================
+           CABEÇALHO
+           ================================================= */
+
+        header {
+
+            padding: 24px 15px 5px;
+
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            margin: 0;
+
+            font-family: "Righteous", sans-serif;
+
+            font-size: clamp(42px, 11vw, 70px);
+
+            letter-spacing: 4px;
+
+            color: white;
+
+            text-shadow:
+
+                0 0 5px white,
+
+                0 0 12px #ff3cac,
+
+                0 0 25px #ff3cac,
+
+                0 0 45px rgba(255, 60, 172, 0.7);
+
+        }
+
+
+        /* SUBTÍTULO */
+
+        .subtitulo {
+
+            margin-top: 8px;
+
+            font-size: 10px;
+
+            letter-spacing: 4px;
+
+            color: #6ee7ff;
+
+            text-transform: uppercase;
+
+            text-shadow:
+                0 0 8px rgba(110, 231, 255, 0.8);
+
+        }
+
+
+        /* LINHA NEON */
+
+        .linha {
+
+            width: 80%;
+
+            max-width: 500px;
+
+            height: 2px;
+
+            margin: 18px auto;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #ff3cac,
+                    #6ee7ff,
+                    transparent
+                );
+
+            box-shadow:
+
+                0 0 8px #ff3cac,
+
+                0 0 15px rgba(110, 231, 255, 0.5);
+
+        }
+
+
+        /* =================================================
+           CARD DO PRODUTO
+           ================================================= */
+
+        .produto {
+
+            width: 92%;
+
+            max-width: 560px;
+
+            margin: 10px auto 25px;
+
+            padding: 20px;
+
+            border-radius: 24px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(20, 25, 50, 0.95),
+                    rgba(10, 14, 30, 0.95)
+                );
+
+            border: 1px solid rgba(110, 231, 255, 0.45);
+
+            box-shadow:
+
+                0 0 15px rgba(110, 231, 255, 0.12),
+
+                0 0 35px rgba(255, 60, 172, 0.10),
+
+                inset 0 0 25px rgba(255,255,255,0.02);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        /* =================================================
+           NOME DO PRODUTO
+           ================================================= */
+
+        .produto h2 {
+
+            margin: 5px 0 10px;
+
+            font-family: "Righteous", sans-serif;
+
+            font-size: clamp(26px, 7vw, 40px);
+
+            line-height: 1.1;
+
+            color: white;
+
+            text-shadow:
+
+                0 0 7px rgba(255, 60, 172, 0.8),
+
+                0 0 18px rgba(255, 60, 172, 0.3);
+
+        }
+
+
+        /* =================================================
+           PREÇO
+           ================================================= */
+
+        .preco {
+
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 6px 17px;
+
+            border-radius: 30px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #ff3cac,
+                    #784ba0
+                );
+
+            border: 1px solid rgba(255,255,255,0.3);
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            box-shadow:
+
+                0 0 10px rgba(255, 60, 172, 0.6),
+
+                0 0 20px rgba(255, 60, 172, 0.25);
+
+        }
+
+
+        /* =================================================
+           MODELO 3D
+           ================================================= */
+
+        model-viewer {
+
+            width: 100%;
+
+            height: 390px;
+
+            border-radius: 18px;
+
+            background:
+
+                radial-gradient(
+                    circle at center,
+                    rgba(110, 231, 255, 0.09),
+                    transparent 65%
+                );
+
+            --poster-color: transparent;
+
+        }
+
+
+        /* =================================================
+           BOTÃO DE REALIDADE AUMENTADA
+           ================================================= */
+
+        .botao-ra {
+
+            margin-top: 10px;
+
+            padding: 15px 22px;
+
+            border: 2px solid #6ee7ff;
+
+            border-radius: 30px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #ff3cac,
+                    #784ba0
+                );
+
+            color: white;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 0 10px rgba(255, 60, 172, 0.7),
+
+                0 0 20px rgba(110, 231, 255, 0.3);
+
+            transition: all 0.25s ease;
+
+        }
+
+
+        /* EFEITO AO PASSAR O MOUSE */
+
+        .botao-ra:hover {
+
+            transform: scale(1.05);
+
+            box-shadow:
+
+                0 0 15px rgba(255, 60, 172, 1),
+
+                0 0 30px rgba(110, 231, 255, 0.5);
+
+        }
+
+
+        /* EFEITO AO CLICAR */
+
+        .botao-ra:active {
+
+            transform: scale(0.97);
+
+        }
+
+
+        /* =================================================
+           RODAPÉ
+           ================================================= */
+
+        .rodape {
+
+            padding: 5px 15px 25px;
+
+            color: rgba(255,255,255,0.45);
+
+            font-size: 9px;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .rodape span {
+
+            color: #6ee7ff;
+
+            text-shadow:
+                0 0 8px #6ee7ff;
+
+        }
+
+
+        /* =================================================
+           TELA DE ERRO
+           ================================================= */
+
+        .erro {
+
+            width: 90%;
+
+            max-width: 500px;
+
+            margin: 50px auto;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            background: rgba(15, 20, 40, 0.95);
+
+            border: 1px solid #ff3cac;
+
+            box-shadow:
+
+                0 0 20px rgba(255, 60, 172, 0.3);
+
+        }
+
+
+        .erro h2 {
+
+            margin-top: 0;
+
+            font-family: "Righteous", sans-serif;
+
+            font-size: 25px;
+
+        }
+
+
+        .erro p {
+
+            color: rgba(255,255,255,0.6);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =================================================
+           AJUSTES PARA CELULAR
+           ================================================= */
+
+        @media (max-width: 500px) {
+
+            header {
+
+                padding-top: 20px;
+
+            }
+
+
+            .produto {
+
+                padding: 15px;
+
+                border-radius: 20px;
+
+            }
+
+
+            model-viewer {
+
+                height: 350px;
+
+            }
+
+
+            .botao-ra {
+
+                font-size: 11px;
+
+                padding: 14px 18px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         CABEÇALHO
+         ================================================= -->
+
+    <header>
+
+        <h1 class="logo">
+            DINER 9000
+        </h1>
+
+
+        <div class="subtitulo">
+            The Diner of Tomorrow
+        </div>
+
+
+        <div class="linha"></div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PRODUTO
+         ================================================= -->
+
+    <div id="produto-container"></div>
+
+
+
+    <!-- =================================================
+         RODAPÉ
+         ================================================= -->
+
+    <div class="rodape">
+
+        <span>✦</span>
+
+        Serving the future since 1957
+
+        <span>✦</span>
+
+    </div>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+         ================================================= -->
+
+    <script>
+
+
+        // =================================================
+        // PRODUTOS
+        // =================================================
+
+        const produtos = {
+
+
+            // -------------------------------------------------
+            // CHEESEBURGER
+            // -------------------------------------------------
+
+            cheeseburger: {
+
+                nome: "The Best Cheeseburger in the Milky Way",
+
+                preco: "R$ 25,00",
+
+                glb: "modelos/Cheeseburger.glb",
+
+                usdz: "modelos/Cheeseburger.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // PIZZA
+            // -------------------------------------------------
+
+            pizza: {
+
+                nome: "Alien's Favorite Pizza",
+
+                preco: "R$ 35,00",
+
+                glb: "modelos/pizza.glb",
+
+                usdz: "modelos/pizza.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // SODA
+            // -------------------------------------------------
+
+            sodapop: {
+
+                nome: "Shooting Star Soda",
+
+                preco: "R$ 8,00",
+
+                glb: "modelos/sodapop.glb",
+
+                usdz: "modelos/sodapop.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // MILKSHAKE
+            // -------------------------------------------------
+
+            milkshake: {
+
+                nome: "Milky Way Shake",
+
+                preco: "R$ 15,00",
+
+                glb: "modelos/milkshake.glb",
+
+                usdz: "modelos/milkshake.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // FRENCH FRIES
+            // -------------------------------------------------
+
+            frenchfries: {
+
+                nome: "Moonwalk Fries",
+
+                preco: "R$ 30,00",
+
+                glb: "modelos/frenchfries.glb",
+
+                usdz: "modelos/frenchfries.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // PUMPKIN PIE
+            // -------------------------------------------------
+
+            pumpkinpie: {
+
+                nome: "Pumpkin Pie 9000",
+
+                preco: "R$ 25,00",
+
+                glb: "modelos/pumpkinpie.glb",
+
+                usdz: "modelos/pumpkinpie.usdz"
+
+            },
+
+
+            // -------------------------------------------------
+            // PANCAKES
+            // -------------------------------------------------
+
+            pancakes: {
+
+                nome: "Pancakes 9000",
+
+                preco: "R$ 30,00",
+
+                glb: "modelos/pancakes.glb",
+
+                usdz: "modelos/pancakes.usdz"
+
+            }
+
+        };
+
+
+
+        // =================================================
+        // PEGAR PRODUTO DA URL
+        // =================================================
+
+        const parametros =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const produtoSelecionado =
+            parametros.get("produto");
+
+
+
+        // =================================================
+        // PEGAR CONTAINER
+        // =================================================
+
+        const container =
+            document.getElementById(
+                "produto-container"
+            );
+
+
+
+        // =================================================
+        // VERIFICAR SE O PRODUTO EXISTE
+        // =================================================
+
+        if (
+            produtoSelecionado &&
+            produtos[produtoSelecionado]
+        ) {
+
+
+            const produto =
+                produtos[produtoSelecionado];
+
+
+
+            // =================================================
+            // CRIAR PRODUTO NA PÁGINA
+            // =================================================
+
+            container.innerHTML = `
+
+                <div class="produto">
+
+
+                    <h2>
+                        ${produto.nome}
+                    </h2>
+
+
+                    <div class="preco">
+
+                        ${produto.preco}
+
+                    </div>
+
+
+                    <model-viewer
+
+                        src="${produto.glb}"
+
+                        ios-src="${produto.usdz}"
+
+                        ar
+
+                        ar-modes="scene-viewer webxr quick-look"
+
+                        camera-controls
+
+                        auto-rotate
+
+                        shadow-intensity="1">
+
+
+                        <button
+
+                            class="botao-ra"
+
+                            slot="ar-button">
+
+                            ✦ VIEW IN AUGMENTED REALITY ✦
+
+                        </button>
+
+
+                    </model-viewer>
+
+
+                </div>
+
+            `;
+
+        }
+
+
+        // =================================================
+        // PRODUTO NÃO ENCONTRADO
+        // =================================================
+
+        else {
+
+
+            container.innerHTML = `
+
+                <div class="erro">
+
+
+                    <h2>
+                        🍽️ Product Not Found
+                    </h2>
+
+
+                    <p>
+
+                        Please scan the correct QR Code.
+
+                    </p>
+
+
+                </div>
+
+            `;
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>g
+
+
