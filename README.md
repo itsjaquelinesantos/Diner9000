@@ -1,0 +1,7 @@
+Rocket Double Cheeseburger ([cheeseburger](https://itsjaquelinesantos.github.io/Diner9000/?produto=cheeseburger))
+Milky Way Shake ([milkshake](https://itsjaquelinesantos.github.io/Diner9000/?produto=milkshake))
+Alien's Favorite Pizza ([pizza](https://itsjaquelinesantos.github.io/Diner9000/?produto=pizza))
+Shooting Star Soda ([sodapop](https://itsjaquelinesantos.github.io/Diner9000/?produto=sodapop))
+Moonwalk Fries ([fries](https://itsjaquelinesantos.github.io/Diner9000/?produto=frenchfries))
+Pumpkin Pie 9000 ([pancakes](https://itsjaquelinesantos.github.io/Diner9000/?produto=pancakes))
+Pancakes 9000 ([pie](https://itsjaquelinesantos.github.io/Diner9000/?produto=pumpkinpie))
